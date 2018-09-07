@@ -9,8 +9,9 @@ namespace app\api\logic;
 use app\api\controller\v1\Basetrait;
 use app\api\model\AddCartModel;
 use app\api\validate\AddCartValidate;
+use think\Model;
 
-class AddCartlogic extends \app\api\base\model\Base
+class AddCartLogic
 {
     use Basetrait;
 
@@ -19,7 +20,7 @@ class AddCartlogic extends \app\api\base\model\Base
     {
         $validate = new  AddCartValidate();
         if (!$validate->check($list)) {
-            return self::showReturnCodeWithOutData('4003', "加入失败", $validate->getError());
+            return self::showReturnCodeWithOutData('403', "加入失败", $validate->getError());
         }
         $UserAddress = new AddCartModel();
         if ($validate->check_auth($list)) {
@@ -27,7 +28,7 @@ class AddCartlogic extends \app\api\base\model\Base
             if ($status == 1) {
                 return self::showReturnCodeWithOutData('201', "加入成功");
             } else {
-                return self::showReturnCodeWithOutData('4003', "加入失败");
+                return self::showReturnCodeWithOutData('403', "加入失败");
             }
         }
 
@@ -35,7 +36,7 @@ class AddCartlogic extends \app\api\base\model\Base
         if (!$status == 0) {
             return self::showReturnCodeWithOutData('201', "加入成功");
         } else {
-            return self::showReturnCodeWithOutData('4003', "加入失败");
+            return self::showReturnCodeWithOutData('403', "加入失败");
         }
     }
 
@@ -46,7 +47,7 @@ class AddCartlogic extends \app\api\base\model\Base
         if ($status) {
             return self::showReturnCodeWithOutData('201', "删除成功");
         } else {
-            return self::showReturnCodeWithOutData('4003', "删除失败");
+            return self::showReturnCodeWithOutData('403', "删除失败");
         }
     }
 

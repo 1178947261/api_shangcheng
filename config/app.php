@@ -18,9 +18,10 @@ return [
     'app_name'               => '',
     // 应用地址
     'app_host'               => '',
-    'app_status'=>'',
+
+    'app_status'             => '',
     // 应用调试模式
-    'app_debug'              => false,
+    'app_debug'              => true,
     // 应用Trace
     'app_trace'              => false,
     // 是否支持多模块
@@ -142,6 +143,6 @@ return [
     // 显示错误信息
     'show_error_msg'         => true,
     // 异常处理handle类 留空使用 \think\exception\Handle
-    'exception_handle'       => '\\app\\exception\\Http',
+    #'exception_handle'       => '\\app\\exception\\Http',
 
 ];

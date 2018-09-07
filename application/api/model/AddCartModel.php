@@ -20,6 +20,10 @@ class AddCartModel extends  \app\api\base\model\Base
     {
         return $this->hasOne('ProductsModel','id','product_id');
     }
+    public function address()
+    {
+        return $this->hasMany('UserAddressModel','user_id','user_id');
+    }
     /**
      * @param $list
      * @return int|string
@@ -48,7 +52,7 @@ class AddCartModel extends  \app\api\base\model\Base
      */
 
     public function get_Products_Cart($user_id){
-        $list = $this->with('cart')->where('user_id','=',$user_id)->paginate(10);
+        $list = $this->with('cart')->with('address')->where('user_id','=',$user_id)->paginate(10);
         return $list;
     }
     public function update_Products_Cart($where=[]){

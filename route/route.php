@@ -31,4 +31,5 @@ Route::group('api/', function () {
     Route::post('Add_Cart/','api/v1.AddCartController/Add_Cart');  //加入购物车
     Route::post('delete_Cart/','api/v1.AddCartController/delete_Cart');//删除购物车
     Route::get('get_Cart/','api/v1.AddCartController/get_Cart');//获取购物车列表
+    Route::post('add_Orders/','api/v1.OrdersController/add_Orders');  //添加订单
 });

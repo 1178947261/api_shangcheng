@@ -6,7 +6,7 @@
  * Time: 15:58
  */
 namespace app\api\controller\v1;
-use app\api\logic\AddCartlogic;
+use app\api\logic\AddCartLogic;
 use think\Controller;
 use think\Request;
 
@@ -16,18 +16,18 @@ class AddCartController extends Controller
     public function Add_Cart(Request $request){
         $data = $request->param();
         $data['user_id'] = $this->user_id;
-        $address = new AddCartlogic();
+        $address = new AddCartLogic();
         return $address->add_Cart($data);
     }
     public function delete_Cart(Request $request){
         $user_id = $this->user_id;
         $id = $request->post('id');
-        $address = new AddCartlogic();
+        $address = new AddCartLogic();
         return $address->delete_Cart($id);
     }
     public function get_Cart(){
         $user_id = $this->user_id;
-        $address = new AddCartlogic();
+        $address = new AddCartLogic();
         $data = $address->get_Cart($user_id);
         return $data;
     }
