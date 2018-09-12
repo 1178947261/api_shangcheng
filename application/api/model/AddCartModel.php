@@ -18,7 +18,7 @@ class AddCartModel extends  \app\api\base\model\Base
 
     public function cart()
     {
-        return $this->hasOne('ProductsModel','id','product_id');
+        return $this->hasOne('ProductskusModel','id','product_sku_id');
     }
     public function address()
     {
@@ -66,6 +66,12 @@ class AddCartModel extends  \app\api\base\model\Base
             return false;
         }
         return true;
+    }
+    
+    public function get_Cart($id){
+
+        $data = $this->where('id','=',$id)->find();
+        return $data;
     }
 
 }

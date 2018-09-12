@@ -11,6 +11,11 @@ use think\Validate;
 
 class  OrdersValidate extends Validate{
 
+    protected $rule = [
+        'address'  =>'require',
+        'cart_id'=>'require',
+    ];
+
 
 
 

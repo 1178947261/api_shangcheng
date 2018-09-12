@@ -39,4 +39,28 @@ class ProductskusModel extends  \app\api\base\model\Base {
         $status = $this->where('id','=',$id)->delete();
         return $status;
     }
+
+    /**
+     *
+     * 获取商品价格
+     */
+    public function get_price($Products_id){
+        $data = $this->where('product_id','=',$Products_id)->find();
+        return $data['price_sku'];
+    }
+
+    /**
+     * 减少库存
+     */
+    public function reduce_stock_Products_sku($sku_id){
+        $this->where('id',$sku_id)->lock(true)->find();
+        $is_num['stock_sku'] = $this->where('id',$sku_id)->field('stock_sku')->find()->toArray();
+        if ($is_num['stock_sku']['stock_sku'] >0){
+            $this->where('id', $sku_id)->setDec('stock_sku', 1);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }

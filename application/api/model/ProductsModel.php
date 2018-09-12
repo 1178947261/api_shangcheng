@@ -105,5 +105,20 @@ class ProductsModel extends  \app\api\base\model\Base {
         return true;
 
     }
+    /**
+     * 减少库存
+     */
+    public function reduce_stock_Products($id,$sku_id){
+        $this->where('id',$id)->lock(true)->find();
+        $is_num['stock']= $this->where('id',$id)->field('stock')->find()->toArray();
+        if ($is_num['stock']['stock'] > 0){
+            $this->where('id', $id)->setDec('stock', 1);
+            $ProductskusModel=new ProductskusModel();
+           $boole= $ProductskusModel->reduce_stock_Products_sku($sku_id);
+           return $boole;
+        }else{
+            return false;
+        }
 
+    }
 }

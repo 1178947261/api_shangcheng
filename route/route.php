@@ -32,4 +32,8 @@ Route::group('api/', function () {
     Route::post('delete_Cart/','api/v1.AddCartController/delete_Cart');//删除购物车
     Route::get('get_Cart/','api/v1.AddCartController/get_Cart');//获取购物车列表
     Route::post('add_Orders/','api/v1.OrdersController/add_Orders');  //添加订单
+    Route::get('get_Orders_list/','api/v1.OrdersController/get_Orders_list');//获取订单列表
+    Route::get('get_Orders_list_one/','api/v1.OrdersController/get_Orders_list_one');//获取单个订单
+    Route::post('delete_Orders/','api/v1.OrdersController/delete_Orders');//取消订单
+    Route::get('classification_Products/','api/v1.ProductsController/classification_Products');//获取商品分类列表
 });

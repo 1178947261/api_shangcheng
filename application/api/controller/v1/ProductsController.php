@@ -9,6 +9,7 @@
 namespace app\api\controller\v1;
 
 use app\api\logic\Productslogic;
+use app\api\model\ClassificationModel;
 use think\Controller;
 use think\Request;
 
@@ -52,13 +53,15 @@ class ProductsController extends Controller {
         return $data;
 
     }
+
     /**
      *
      * 返回分类列表
      */
-    public function classification_Products(){
-
-
+    public function classification_Products(Request $request,ClassificationModel $classificationModel){
+            $data =  $classificationModel->getClassification();
+            return self::showReturnCode('200',$data);
     }
+
 
 }
