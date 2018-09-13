@@ -2,6 +2,7 @@
 
 namespace app\api\controller\v1;
 
+use app\api\model\UserGoodsModel;
 use think\Controller;
 use think\Request;
 use app\api\logic\GoodsCollectLogic;
@@ -23,6 +24,7 @@ class GoodsCollectController extends  Controller
         $user_id = $this->user_id;
         $address = new GoodsCollectLogic();
         $data = $address->get_Goodsconllect($user_id);
+
         return $data;
     }
 

@@ -16,11 +16,13 @@ class GoodsCollectModel extends  \app\api\base\model\Base {
         $list['created_at']=time();
         $list['updated_at']=time();
         $status=$this->insertGetId($list);
+        UserGoodsModel::add_number_attention($list['user_id']);
         return $status;
     }
 
     public function delete_Goodsconllect($id,$user_id){
         $status = $this->where('id','=',$id)->where('user_id','=',$user_id)->delete();
+        UserGoodsModel::lower_number_attention($user_id);
         return $status;
     }
 

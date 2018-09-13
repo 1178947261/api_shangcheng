@@ -52,58 +52,75 @@ class UserGoodsModel extends \app\api\base\model\Base
      *
      */
 
-    public function add_number_attention($user_id){
+    static public function add_number_attention($user_id){
 
-
+        self::where('user_id', $user_id)->setInc('number_attention');
     }
     /**
      * 添加number_goods
      *店铺的商品数量
      */
 
-    public function add_number_goods($user_id){
+    static  public function add_number_goods($user_id){
 
-
+        self::where('user_id', $user_id)->setInc('添加number_goods');
     }
     /**
      * 添加订单数
      *订单数
      */
 
-    public function add_number_order($user_id){
+    static  public function add_number_order($user_id){
 
-
+        self::where('user_id', $user_id)->setInc('number_order');
     }
 
+    /**
+     * @param $user_id
+     * @throws \think\Exception
+     * 增加销售额
+     */
+    static public function add_number_amount($user_id){
 
+        self::where('user_id', $user_id)->setInc('number_amount');
+    }
     //减少
 
     /**
-     * 添加关注量
+     * 减少关注量
      *
      */
 
-    public function lower_number_attention($user_id){
+    static  public function lower_number_attention($user_id){
 
-
+        self::where('user_id', $user_id)->setDec('number_attention');
     }
     /**
-     * 添加number_goods
+     * 减少number_goods
      *店铺的商品数量
      */
 
-    public function lower_number_goods($user_id){
+    static  public function lower_number_goods($user_id){
 
-
+        self::where('user_id', $user_id)->setDec('number_goods');
     }
     /**
-     * 添加订单数
+     * 减少订单数
      *订单数
      */
 
-    public function lower_number_order($user_id){
+    static  public function lower_number_order($user_id){
 
-
+        self::where('user_id', $user_id)->setDec('number_order');
     }
 
+    /**
+     * @param $user_id
+     * @throws \think\Exception
+     * 减少销售额
+     */
+   static public function lower_number_amount($user_id){
+
+       self::where('user_id', $user_id)->setDec('number_amount');
+    }
 }
