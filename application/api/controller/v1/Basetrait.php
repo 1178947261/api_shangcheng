@@ -115,5 +115,20 @@ trait  Basetrait
         return  $prefix . substr($str,1);
     }
 
+    /**
+     * @return mixed
+     * 防止重复提交
+     */
+
+    public function  is_cf(){
+        $userid=$this->user_id;
+        Cache::store('redis')->select('3');
+        if (Cache::store('redis')->get('Orderitems_' . $userid)) {
+            $jsondata = [400, lang('base_busy')];
+            return A($jsondata);
+        } else {
+            Cache::store('redis')->set('Orderitems_' . $userid, true, 30);
+        }
+    }
 
 }

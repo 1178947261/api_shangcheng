@@ -71,15 +71,29 @@ class OrderitemsModel extends \app\api\base\model\Base
     /**
      * @param $data
      * 评论商品
+     * id 订单ID
      */
-    public function add_comment($list, $userid)
+    public function add_comment($list)
     {
-        $OrdersModel = new   OrdersModel();
-        $data = $OrdersModel->get_orders($list['id']);
-        $status = $this->allowField(['paid_at', 'payment_method', 'IsPay'])->isUpdate($data, ['id' => $id]);
+        $list['reviewed_at']=time();
+       # var_dump($list);
+        $status = $this->allowField(['rating', 'review', 'reviewed_at','image'])->isUpdate(true, ['order_id' => $list['order_id']])->save($list);
         return $status;
     }
 
+    /**
+     * @param $id
+     * @return array|null|\PDOStatement|string|\think\Model
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     *
+     *  是否重复评论
+     */
+    public function chek_comment($id){
+        $status =  $this->where('order_id','=',$id)->find();
+        return $status['rating'];
+    }
 
     /**
      * @param $product_id
@@ -87,7 +101,7 @@ class OrderitemsModel extends \app\api\base\model\Base
      */
     public function get_comment($product_id){
 
-
+        return $this->where('product_id','=',$product_id)->select();
     }
 
 }

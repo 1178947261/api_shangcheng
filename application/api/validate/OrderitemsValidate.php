@@ -6,10 +6,10 @@
  * Time: 16:36
  */
 namespace app\api\validate;
+use app\api\model\OrderitemsModel;
 use think\Validate;
 
 class  OrderitemsValidate extends Validate{
-
 
 
 

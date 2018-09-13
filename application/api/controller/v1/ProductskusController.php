@@ -14,6 +14,12 @@ use think\Request;
 class ProductskusController extends Controller {
 
     use Basetrait;
+
+    /**
+     * @param Request $request
+     * @return array
+     * 添加商品小类sku
+     */
     public function add_Productskus(Request $request){
         $user_id = $this->user_id;
         $list = $request->param('','htmlspecialchars');
@@ -21,6 +27,26 @@ class ProductskusController extends Controller {
         $address = new \app\api\logic\Productskuslogic();
         $data = $address->add_Products($list);
         return $data;
+    }
+
+    /**
+     * @param Request $request
+     * 商户修改商品小类
+     */
+    public function update_Productskus(Request $request){
+
+
+
+    }
+    /**
+     *
+     * 商户删除商品小类
+     */
+
+    public function delect_Productskus(Request $request){
+
+
+
     }
 
 }

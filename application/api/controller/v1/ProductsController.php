@@ -25,6 +25,12 @@ class ProductsController extends Controller {
         $data = $address->get_Product_list($list);
         return $data;
     }
+
+    /**
+     * @param Request $request
+     * @return array
+     * 商户添加商品
+     */
     public function add_Products(Request $request){
         $user_id = $this->user_id;
         $list = $request->param('','htmlspecialchars');
@@ -33,18 +39,27 @@ class ProductsController extends Controller {
         $data = $address->add_Products($list);
         return $data;
     }
-    public function delete_Products(){
+
+    /**
+     * @param Request $request
+     * 商户删除商品
+     */
+    public function delete_Products(Request $request){
 
 
     }
 
-
-    public function update_Products(){
+    /**
+     * @param Request $request
+     *
+     * 商户修改商品
+     */
+    public function update_Products(Request $request){
 
 
     }
     /**
-     * 搜索
+     * 搜索商品
      */
     public function search_Products(Request $request){
         $list = $request->param('','htmlspecialchars');
@@ -56,7 +71,7 @@ class ProductsController extends Controller {
 
     /**
      *
-     * 返回分类列表
+     * 返回商品分类列表
      */
     public function classification_Products(Request $request,ClassificationModel $classificationModel){
             $data =  $classificationModel->getClassification();

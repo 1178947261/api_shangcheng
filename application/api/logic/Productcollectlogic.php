@@ -36,7 +36,7 @@ use Basetrait;
             'user_id'=>$user_id,
             'id'=>$id
         ];
-        if (!$validate->check_repetition($list)) {
+        if ($validate->check_repetition($list)) {
             return self::showReturnCodeWithOutData('4003', "取消收藏失败", $validate->getError());
         }
         $Productcollect = new \app\api\model\ProductcollectModel();

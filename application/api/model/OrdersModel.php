@@ -19,6 +19,15 @@ class OrdersModel extends OrdersBaseModel
     {
         return $this->hasOne('OrderitemsModel', 'order_id', 'id');
     }
+    public function comment()
+    {
+        return $this->hasOne('OrderitemsModel', 'order_id', 'id');
+    }
+
+    /**
+     * @param $
+     * 获取评论
+     */
 
 
     /**
@@ -164,7 +173,7 @@ class OrdersModel extends OrdersBaseModel
      */
     public function update_play($id, $data)
     {
-        $status = $this->allowField(['paid_at', 'payment_method', 'IsPay'])->isUpdate($data, ['id' => $id]);
+        $status = $this->allowField(['paid_at', 'payment_method', 'IsPay'])->isUpdate(true, ['id' => $id])->save();
         return $status;
     }
 
@@ -176,7 +185,7 @@ class OrdersModel extends OrdersBaseModel
      */
     public function update_ship_status($id, $data)
     {
-        $status = $this->allowField(['ship_status', 'ship_type'])->isUpdate($data, ['id' => $id]);
+        $status = $this->allowField(['ship_status', 'ship_type'])->isUpdate(true, ['id' => $id])->save($data);
         return $status;
     }
 
