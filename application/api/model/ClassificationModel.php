@@ -15,7 +15,7 @@ class ClassificationModel extends \app\api\base\model\Base{
 
     public function getClassification(){
 
-       return $this->select();
+       return $this->paginate();
 
     }
 

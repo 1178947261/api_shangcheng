@@ -17,13 +17,13 @@ class OrderitemsLogic
           $ord = new   OrderitemsModel();
          $status=$ord->chek_comment($list['order_id']);
         if (!empty($status)){
-            return self::showReturnCodeWithOutData('4003', "发布评论失败_已经评价了");
+            return self::showReturnCodeWithOutData('422', "发布评论失败_已经评价了");
         }
         $status=  $ord->add_comment($list);
         if ($status){
                 return self::showReturnCodeWithOutData('201', "创建成功");
         }else{
-            return self::showReturnCodeWithOutData('4003', "发布评论失败");
+            return self::showReturnCodeWithOutData('422', "发布评论失败");
         }
 
 

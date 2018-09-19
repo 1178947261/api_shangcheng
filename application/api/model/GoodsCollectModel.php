@@ -31,7 +31,7 @@ class GoodsCollectModel extends  \app\api\base\model\Base {
             ->where('id', 'IN', function ($query) use($user_id){
                 $query->table('user_goods_collect')->where('user_id','=',$user_id)->field('goods_id');
             })
-            ->select();
+            ->paginate();
         return $subQuery;
     }
 

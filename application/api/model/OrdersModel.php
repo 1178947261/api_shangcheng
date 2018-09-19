@@ -60,6 +60,7 @@ class OrdersModel extends OrdersBaseModel
                  Db::rollback();
                  $status = false;
              }
+             UserGoodsModel::add_number_order($list['user_id']);
             Db::commit();
         } catch (\Exception $e) {
             // 回滚事务
@@ -162,7 +163,7 @@ class OrdersModel extends OrdersBaseModel
      */
     public function get_Orders_list($user_id)
     {
-        $data = $this->with('cart')->where('user_id', '=', $user_id)->select();
+        $data = $this->with('cart')->where('user_id', '=', $user_id)->paginate();
         return $data;
     }
 
@@ -193,6 +194,24 @@ class OrdersModel extends OrdersBaseModel
 
        $data =  $this->field('id,user_id')->where('id','=',$id)->field();
        return $data;
+    }
+
+
+    //订单管理  发货
+    public function dingdanfahuo($id,$ship_type,$extra)
+    {
+        $where       = [
+            'id' => $id,
+        ];
+
+        $wuliu = [
+            'ship_type'   => $ship_type, // 快递
+            'extra'       => $extra, // 物流单号
+        ];
+
+        $data = $this->save($wuliu,$where);
+
+        return $data === false ? false : true;
     }
 
 }

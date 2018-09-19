@@ -123,4 +123,26 @@ class UserGoodsModel extends \app\api\base\model\Base
 
        self::where('user_id', $user_id)->setDec('number_amount');
     }
+
+    /**
+     * @param $user_id
+     * @throws \think\Exception
+     * 商户获取自己的商铺订单
+     */
+     public function get_Orders_goods($user_id){
+             $where=[
+                 'a.user_id'=>$user_id
+             ];
+             $field = 'a.user_id,c.amount,c.price,d.address,d.refund_status,d.closed,d.reviewed,d.ship_status,d.IsPay,e.title_sku,e.image_sku,e.config,e.description_sku';
+             $data = $this->name('user_goods')->alias('a')
+                 ->join('products b','a.user_id=b.user_id')
+                 ->join('product_skus e','b.id=e.product_id')
+                 ->join('order_items c','c.product_id=b.id')
+                 ->join('orders d','c.order_id=d.id')
+                 ->field($field)
+                 ->where($where)
+                 ->paginate();
+             return $data;
+
+    }
 }

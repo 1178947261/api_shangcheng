@@ -36,7 +36,7 @@ class ProductskusModel extends  \app\api\base\model\Base {
      */
 
     public function delete_Products_skus($id){
-        $status = $this->where('id','=',$id)->delete();
+        $status =  $this->where('id','=',$id)->delete();
         return $status;
     }
 
@@ -48,7 +48,16 @@ class ProductskusModel extends  \app\api\base\model\Base {
         $data = $this->where('product_id','=',$Products_id)->find();
         return $data['price_sku'];
     }
+    /**
+     *
+     *修改小类
+     */
+    public function updata_Products_skus($list,$userid){
 
+        //限制更新字段
+        $status = $this->allowField(['title_sku','description_sku','price_sku','stock_sku','image_sku','price_old','config'])->save($list,['id'=>$list['id']]);
+        return $status;
+    }
     /**
      * 减少库存
      */

@@ -28,6 +28,11 @@ Route::group('api/', function () {
     Route::get('search_Products/','api/v1.ProductsController/search_Products');//搜索商品
     Route::post('add_Products/','api/v1.ProductsController/add_Products')->middleware(app\http\middleware\Auth::class);//添加商品大类
     Route::post('add_Productskus/','api/v1.ProductskusController/add_Productskus')->middleware(app\http\middleware\Auth::class);//添加商品小类
+    Route::post('update_Products/','api/v1.ProductsController/update_Products')->middleware(app\http\middleware\Auth::class);//修改商品大类
+    Route::post('add_Productskus/','api/v1.ProductskusController/add_Productskus')->middleware(app\http\middleware\Auth::class);//修改商品小类
+    Route::post('delete_Products/','api/v1.ProductsController/delete_Products')->middleware(app\http\middleware\Auth::class);;//删除商品大类-也会删除小类
+    Route::post('delect_Productskus/','api/v1.ProductskusController/delect_Productskus')->middleware(app\http\middleware\Auth::class);;//删除商品小类
+    Route::get('get_Products_user/','api/v1.ProductsController/get_Products_user')->middleware(app\http\middleware\Auth::class);;//商户获取自己的商品列表
     Route::post('Add_Cart/','api/v1.AddCartController/Add_Cart');  //加入购物车
     Route::post('delete_Cart/','api/v1.AddCartController/delete_Cart');//删除购物车
     Route::get('get_Cart/','api/v1.AddCartController/get_Cart');//获取购物车列表
@@ -41,6 +46,9 @@ Route::group('api/', function () {
     Route::get('get_GoodsCollect/','api/v1.GoodsCollectController/get_GoodsCollect');//获取关注列表
     Route::post('add_GoodsCollect/','api/v1.GoodsCollectController/add_GoodsCollect');//关注
     Route::post('delete_GoodsCollect/','api/v1.GoodsCollectController/delete_GoodsCollect');//删除关注
+    Route::get('get_ProductShow_list/','api/v1.ProductShowController/get_ProductShow_list');//前台三个广告页面
+    Route::get('get_Recommend_show/','api/v1.ProductShowController/get_Recommend_show');//商品推荐
+    Route::get('get_Choiceness_show/','api/v1.ProductShowController/get_Choiceness_show');//精选商品
 
 
     Route::get('bill/', 'api/v1.MoneyLogController/bill')->middleware(app\http\middleware\Auth::class); //我的账单
@@ -51,5 +59,6 @@ Route::group('api/', function () {
     Route::get('orders_Nums/', 'api/v1.OrdersController/ordersNums'); //获取订单数量
     Route::get('number_Amount/', 'api/v1.UserGoodsController/numberAmount'); //获取销售额
     Route::get('number_attention/', 'api/v1.UserGoodsController/number_attention'); //获取店铺的关注量
+    Route::get('get_Orders_goods/', 'api/v1.OrdersController/get_Orders_goods')->middleware(app\http\middleware\Auth::class);//商户获取用户的订单列表
 
 });

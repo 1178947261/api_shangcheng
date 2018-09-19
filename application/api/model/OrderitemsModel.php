@@ -101,7 +101,21 @@ class OrderitemsModel extends \app\api\base\model\Base
      */
     public function get_comment($product_id){
 
-        return $this->where('product_id','=',$product_id)->select();
+        return $this->where('product_id','=',$product_id)->paginate();
+    }
+    //获取订单数量
+    public function ordersNums($user_id)
+    {
+
+        $where = [
+            'b.user_id' => $user_id,
+        ];
+
+        return $this->alias('a')
+            ->join('orders b', 'a.order_id=b.id')
+            ->join('products c', 'a.product_id=c.id')
+            ->where($where)
+            ->count('a.id');
     }
 
 }

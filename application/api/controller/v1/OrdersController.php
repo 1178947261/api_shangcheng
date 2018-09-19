@@ -74,10 +74,40 @@ class OrdersController extends Controller
 
     }
 
-    /**
-     * @param Request $request
-     * 商户发货
-     */
 
+    //订单管理
+    /**
+     *  发货->物流消息：配送方式、物流单号
+     */
+    public function dingdanfahuo(Request $request){
+
+         $id   = $this->id;
+        $param    = $request->param();
+        $service  = new OrdersLogic();
+        $jsondata = $service->dingdanfahuo($id, $param);
+        return $jsondata;
+
+
+    }
+
+    //获取订单数量
+    public function ordersNums(){
+
+        $user_id = $this->user_id;
+        $ordersNums = new OrdersLogic();
+        return $ordersNums->ordersNums($user_id);
+
+    }
+
+    /**
+     * @param $user_id
+     * @return array  商户获取用户的订单列表
+     */
+    public function get_Orders_goods(){
+        $user_id = $this->user_id;
+        $OrdersLogic = new OrdersLogic();
+        $data =  $OrdersLogic->get_Orders_goods($user_id);
+        return self::showReturnCode('200',$data);
+    }
 
 }

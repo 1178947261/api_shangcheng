@@ -20,14 +20,14 @@ class UserAddresslogic
     {
         $validate = new  UserAddressValidate();
         if (!$validate->check($list)) {
-            return self::showReturnCodeWithOutData('4003', "创建失败", $validate->getError());
+            return self::showReturnCodeWithOutData('422', "创建失败", $validate->getError());
         }
         $UserAddress = new UserAddressModel();
         $status = $UserAddress->add_address($list);
         if (!$status == 0) {
             return self::showReturnCodeWithOutData('201', "创建成功");
         } else {
-            return self::showReturnCodeWithOutData('4003', "创建失败");
+            return self::showReturnCodeWithOutData('422', "创建失败");
         }
     }
     public function up_date($list,$userid){
@@ -35,13 +35,13 @@ class UserAddresslogic
         $validate = new  UserAddressValidate();
         $check=$validate->scene_list;
         if (!$validate->check($list,$check)) {
-            return self::showReturnCodeWithOutData('4003', "修改失败", $validate->getError());
+            return self::showReturnCodeWithOutData('422', "修改失败", $validate->getError());
         }
         $status = $UserAddress->updata_address($list,$userid);
         if ($status) {
             return self::showReturnCodeWithOutData('201', "修改成功");
         } else {
-            return self::showReturnCodeWithOutData('4003', "修改失败");
+            return self::showReturnCodeWithOutData('422', "修改失败");
         }
 
     }
@@ -51,7 +51,7 @@ class UserAddresslogic
         if ($status) {
             return self::showReturnCodeWithOutData('201', "删除成功");
         } else {
-            return self::showReturnCodeWithOutData('4003', "删除失败");
+            return self::showReturnCodeWithOutData('422', "删除失败");
         }
     }
 

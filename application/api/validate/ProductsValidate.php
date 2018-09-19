@@ -21,5 +21,12 @@ class  ProductsValidate extends Validate{
         'user_id'=>'require',
         'classification'=>'require',
     ];
+    public $rule_s =[
+        'id'=>'require|integer'
+    ];
+    public $message =[
+
+
+    ];
 
 }

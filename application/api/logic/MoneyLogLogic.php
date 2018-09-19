@@ -15,11 +15,7 @@ class MoneyLogLogic
     {
         $Products = new \app\api\model\MoneyLogModel();
         $data     = $Products->get_bill($billdata['user_id']);
-        if (empty($data)) {
-            return '无数据';
-        } else {
-            return self::showReturnCode('200', $data);
-        }
+        return self::showReturnCode('200', $data);
         
     }
 

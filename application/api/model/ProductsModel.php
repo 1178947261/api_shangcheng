@@ -23,6 +23,7 @@ class ProductsModel extends  \app\api\base\model\Base {
         $list_Array=$this->add_array($list);
         $status=$this->insertGetId($list_Array);
         $list['product_id']=$status;
+        UserGoodsModel::add_number_goods($list['user_id']); //增加商品数量
         return $status;
     }
     public function add_array($list){
@@ -41,11 +42,30 @@ class ProductsModel extends  \app\api\base\model\Base {
     }
 
     public function updata_Products($list,$userid){
-        $status = $this->save($list,['user_id'=>$userid]);
+        //限制更新字段
+        $status = $this->allowField(['title','description','image','show_image','classification','stock','price'])->save($list,['user_id'=>$userid]);
         return $status;
     }
+
+    /**
+     * @param $id
+     * @param $user_id
+     * @return bool
+     * @throws \think\exception\PDOException
+     * 删除商品大类
+     */
     public function delete_Products($id,$user_id){
-        $status = $this->where('id','=',$id)->where('user_id','=',$user_id)->delete();
+        $this->startTrans();
+        try {
+         $status = $this->where('id','=',$id)->where('user_id','=',$user_id)->delete();
+         $products = new  ProductskusModel();
+         $products->delete_Products_skus($id);
+            $this->commit();
+        } catch (\Exception $e) {
+            // 回滚事务
+            $this->rollback();
+        }
+        UserGoodsModel::lower_number_goods($user_id);
         return $status;
     }
     public function get_Products($user_id){
@@ -119,6 +139,53 @@ class ProductsModel extends  \app\api\base\model\Base {
         }else{
             return false;
         }
+
+    }
+
+    /**
+     * @param $id
+     * @return bool
+     *  下架商品
+     */
+
+    public function xiajiashangpin($id)
+    {
+        $where   = [
+            'id'      => $id,
+        ];
+        $on_sale = 2;
+        $data = [
+            'on_sale' => $on_sale,
+        ];
+        $s = $this -> where($where)->update($data);
+        return $s === false ? false : true;
+
+    }
+    /**
+     * @param $user_id
+     * @return float|string
+     * 获取商品数量
+     */
+    public function shangpin_nums($user_id)
+    {
+        $where = [
+            'user_id' => $user_id,
+        ];
+        return $this->where($where)->count('user_id');
+    }
+    /**
+     *
+     *
+     */
+    public function get_choiceness_show(){
+        $data = $this->where('choiceness','=',1)->order('id','desc')->paginate(5);
+        return $data;
+    }
+
+    public function get_Recommend_show()
+    {
+        $data = $this->where('recommend','=',1)->order('id','desc')->paginate(5);
+        return $data;
 
     }
 }
