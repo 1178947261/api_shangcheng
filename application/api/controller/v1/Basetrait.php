@@ -1,6 +1,9 @@
 <?php
 namespace app\api\controller\v1;
+use think\facade\Cache;
 use think\Controller;
+use think\Request;
+
 /**
  * Created by PhpStorm.
  * Power by Mikkle
@@ -23,7 +26,7 @@ trait  Basetrait
         $return_data = [
             'status_code' => '500', // 自定义的异常码
             'message' => '未定义消息',
-            'data' => isset($data)?$data:'',
+            'data' => !empty($data)?$data:"{}",
             'errors'=>$errors,
 
         ];
@@ -39,7 +42,7 @@ trait  Basetrait
 
     static public function showReturnCodeWithOutData($code = '', $msg = '')
     {
-        return self::showReturnCode($code,[],$msg);
+        return self::showReturnCode($code,"{}",$msg);
 
     }
 
@@ -121,13 +124,14 @@ trait  Basetrait
      */
 
     public function  is_cf(){
+      $request = new \think\facade\Request();
+      $request::action();
         $userid=$this->user_id;
-        Cache::store('redis')->select('3');
-        if (Cache::store('redis')->get('Orderitems_' . $userid)) {
-            $jsondata = [400, lang('base_busy')];
-            return A($jsondata);
-        } else {
-            Cache::store('redis')->set('Orderitems_' . $userid, true, 30);
+        if (Cache::get( $request::action(). $userid)) {
+            return false;
+        }else{
+            Cache::set($request::action(). $userid, true, 30);
+            return true;
         }
     }
 

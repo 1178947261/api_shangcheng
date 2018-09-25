@@ -24,6 +24,10 @@ class ProductskusController extends Controller {
      * 添加商品小类sku
      */
     public function add_Productskus(Request $request){
+        $chek =$this->is_cf();
+        if ($chek==false){
+            return self::showReturnCodeWithOutData('503',lang("FWQFM"));
+        }
         $user_id = $this->user_id;
         $list = $request->param('','htmlspecialchars');
         $list['user_id']=$user_id;

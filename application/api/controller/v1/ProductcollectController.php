@@ -35,6 +35,10 @@ class ProductcollectController extends  Controller
      */
     public function add_Productcollect(Request $request)
     {
+        $chek =$this->is_cf();
+        if ($chek==false){
+            return self::showReturnCodeWithOutData('503',lang("FWQFM"));
+        }
         $user_id = $this->user_id;
         $list = $request->param('','htmlspecialchars');
         $list['user_id']=$user_id;

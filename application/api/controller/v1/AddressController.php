@@ -14,6 +14,10 @@ class AddressController extends  Controller{
      */
     public function address_data(Request $request)
     {
+        $chek =$this->is_cf();
+        if ($chek==false){
+            return self::showReturnCodeWithOutData('503',lang("FWQFM"));
+        }
         $data = $request->param();
         $data['user_id'] = $this->user_id;
         $address = new UserAddresslogic();
@@ -26,6 +30,10 @@ class AddressController extends  Controller{
      * 修改收货地址
      */
     public function update_address(Request $request){
+        $chek =$this->is_cf();
+        if ($chek==false){
+            return self::showReturnCodeWithOutData('503',lang("FWQFM"));
+        }
         $data = $request->param('','htmlspecialchars');
         $data['user_id'] = $this->user_id;
         $address = new UserAddresslogic();

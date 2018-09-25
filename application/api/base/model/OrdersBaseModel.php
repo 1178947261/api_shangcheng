@@ -7,6 +7,7 @@
  */
 namespace app\api\base\model;
 use think\Db;
+use think\facade\Lang;
 use think\Model;
 
 class OrdersBaseModel extends Base
@@ -31,15 +32,15 @@ class OrdersBaseModel extends Base
     }
     public function getShiptypeAttr($value){
         if ($value==null){
-            return "未发货";
+            return lang('WFH');
         }
-        $get_data = ['SF'=>'顺丰快递','ZT'=>'中通快递','YT'=>'圆通','YZ'=>'邮政'];
+        $get_data = ['SF'=>lang('SF'),'ZT'=>lang('ZT'),'YT'=>lang('YT'),'YZ'=>lang('YZ')];
         return $get_data[$value];
     }
 
     public function getIsPayAttr($value, $data){
 
-        $get_data = ['0'=>'未付款','1'=>'已付款'];
+        $get_data = ['0'=>\lang('WFK'),'1'=>lang('YFK')];
         return $get_data[$value];
     }
 

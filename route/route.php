@@ -8,7 +8,6 @@
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-
 Route::get('think', function () {
     return 'hello,ThinkPHP5!';
 });
@@ -60,5 +59,4 @@ Route::group('api/', function () {
     Route::get('number_Amount/', 'api/v1.UserGoodsController/numberAmount'); //获取销售额
     Route::get('number_attention/', 'api/v1.UserGoodsController/number_attention'); //获取店铺的关注量
     Route::get('get_Orders_goods/', 'api/v1.OrdersController/get_Orders_goods')->middleware(app\http\middleware\Auth::class);//商户获取用户的订单列表
-
 });

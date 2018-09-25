@@ -14,6 +14,10 @@ class AddCartController extends Controller
 {
     use Basetrait;
     public function Add_Cart(Request $request){
+        $chek =$this->is_cf();
+        if ($chek==false){
+            return self::showReturnCodeWithOutData('503',lang("FWQFM"));
+        }
         $data = $request->param();
         $data['user_id'] = $this->user_id;
         $address = new AddCartLogic();

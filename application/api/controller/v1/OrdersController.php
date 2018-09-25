@@ -27,6 +27,10 @@ class OrdersController extends Controller
 
     public function add_Orders(Request $request)
     {
+        $chek =$this->is_cf();
+        if ($chek==false){
+            return self::showReturnCodeWithOutData('503',lang("FWQFM"));
+        }
         $data = $request->param();
         $data['user_id'] = $this->user_id;
         $address = new OrdersLogic();
@@ -80,8 +84,11 @@ class OrdersController extends Controller
      *  发货->物流消息：配送方式、物流单号
      */
     public function dingdanfahuo(Request $request){
-
-         $id   = $this->id;
+        $chek =$this->is_cf();
+        if ($chek==false){
+            return self::showReturnCodeWithOutData('503',lang("FWQFM"));
+        }
+         $id   = $this->user_id;
         $param    = $request->param();
         $service  = new OrdersLogic();
         $jsondata = $service->dingdanfahuo($id, $param);

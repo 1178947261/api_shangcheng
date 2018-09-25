@@ -23,7 +23,7 @@ class Auth
         $USER = new UserGoodsModel();
        $user_id= $USER->is_chek($this->user_id);
         if ($user_id) {
-            $data =self::showReturnCodeWithOutData('301','权限不足');
+            $data =self::showReturnCodeWithOutData('301',lang('QXBZ'));
             return   Response::create($data,'json');
         }
         return $next($request);

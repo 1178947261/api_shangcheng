@@ -15,8 +15,7 @@ class UserGoodsController extends Controller
      */
     public function addData(Request $request)
     {
-        $id = 1;
-        // $id   = $this->id;
+        $id   = $this->user_id;
         $param    = $request->param();
         $service  = new UserGoodsLogic();
         $jsondata = $service->addData($id, $param);
@@ -26,16 +25,16 @@ class UserGoodsController extends Controller
     //获取销售额
     public function numberAmount()
     {
-        $user_id = 1;
-        // $user_id = $this->user_id;
+
+         $user_id = $this->user_id;
         $number_amount = new UserGoodsLogic();
         return $number_amount->numberAmount($user_id);
     }
     //获取店铺的关注量
     public function number_attention()
     {
-        $user_id = 1;
-        // $user_id = $this->user_id;
+
+        $user_id = $this->user_id;
         $number_amount = new UserGoodsLogic();
         return $number_amount->number_attention($user_id);
 

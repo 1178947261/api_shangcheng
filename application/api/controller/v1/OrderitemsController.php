@@ -22,7 +22,10 @@ class OrderitemsController extends Controller
      * 订单评论
      */
     public function add_comment(Request $request,OrderitemsLogic $orderitemsLogic){
-
+        $chek =$this->is_cf();
+        if ($chek==false){
+            return self::showReturnCodeWithOutData('503',lang("FWQFM"));
+        }
         $list=   $request::param("");
         return $orderitemsLogic->add_comment($list);
     }
